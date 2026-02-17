@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -6,7 +7,6 @@ const Portfolio = () => {
   const [typedText, setTypedText] = useState('');
   const form = useRef();
   
-  // 1. UPDATED HEADLINE FOR DATA ANALYST ROLE
   const fullText = "I transform data into actionable business insights.";
 
   // Typewriter effect
@@ -20,13 +20,11 @@ const Portfolio = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // 2. EMAILJS LOGIC
+  // EmailJS Logic
   const sendEmail = (e) => {
     e.preventDefault();
-
-    // Replaced with your actual keys
     emailjs.sendForm('service_ivhwv3g', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
-      .then((result) => {
+      .then(() => {
           alert("Message Sent Successfully! 🚀");
           e.target.reset();
       }, (error) => {
@@ -59,13 +57,19 @@ const Portfolio = () => {
     }
   ];
 
+  const skillData = [
+    { name: 'Python', level: 90 },
+    { name: 'SQL', level: 85 },
+    { name: 'ML/AI', level: 80 },
+    { name: 'Data Viz', level: 75 },
+  ];
+
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white">
       
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* UPDATED LOGO: Initials instead of <Dev/> */}
           <div className="text-xl font-bold text-cyan-400 font-mono">SC.</div>
           <div className="flex gap-6 text-sm font-medium">
             <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
@@ -107,16 +111,31 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Skills Section - WITH CHART */}
       <section id="skills" className="py-10 bg-slate-900 border-y border-slate-800 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <p className="text-center text-sm font-mono text-slate-500 mb-8">CORE COMPETENCIES</p>
-          <div className="flex justify-center gap-12 flex-wrap opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+          
+          {/* Icons Row */}
+          <div className="flex justify-center gap-12 flex-wrap opacity-70 grayscale hover:grayscale-0 transition-all duration-500 mb-10">
             <div className="flex flex-col items-center gap-2"><BarChart3 size={40} /><span className="text-xs">Data Analysis</span></div>
             <div className="flex flex-col items-center gap-2"><Database size={40} /><span className="text-xs">SQL / Python</span></div>
             <div className="flex flex-col items-center gap-2"><Brain size={40} /><span className="text-xs">Machine Learning</span></div>
             <div className="flex flex-col items-center gap-2"><LineChart size={40} /><span className="text-xs">Business Intel</span></div>
           </div>
+
+          {/* New Professional Chart */}
+          <div className="h-64 w-full max-w-2xl mx-auto">
+            <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={skillData} layout="vertical" margin={{ left: 20 }}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" width={80} stroke="#94a3b8" tick={{fontSize: 12}} />
+                <Tooltip cursor={{fill: '#1e293b'}} contentStyle={{backgroundColor: '#0f172a', border: '1px solid #334155', color: '#fff'}} />
+                <Bar dataKey="level" fill="#22d3ee" radius={[0, 4, 4, 0]} barSize={20} />
+                </BarChart>
+            </ResponsiveContainer>
+           </div>
+
         </div>
       </section>
 
