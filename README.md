@@ -9,7 +9,7 @@
 Hi, I'm **Subhankar Chand**, a final-year B.Tech student specializing in **Artificial Intelligence & Machine Learning**.  
 This portfolio showcases my work in **Data Analytics, Computer Vision, and Predictive Modeling**, bridging the gap between raw data and actionable business insights.
 
-🔴 **Live Demo:** [Click here to view my Portfolio](https://portfolio-v1.vercel.app) *(Replace this with your actual Vercel link)*
+🔴 **Live Demo:** [Click here to view my Portfolio](https://portfolio-orpin-omega-akmfzlhpjj.vercel.app/) 
 
 ---
 
@@ -61,7 +61,7 @@ A full-featured web-based management system for digital and physical libraries.
 
 ## 📫 Contact
 * **Email:** subhankarchand66@gmail.com
-* **LinkedIn:** [Subhankar Chand](https://www.linkedin.com/in/subhankar-chand) *(Update this link)*
+* **LinkedIn:** [Subhankar Chand](https://www.linkedin.com/in/subhankarchand/) 
 * **GitHub:** [SubhankarChand](https://github.com/SubhankarChand)
 
 ---
