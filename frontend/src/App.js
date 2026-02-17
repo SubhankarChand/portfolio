@@ -26,7 +26,7 @@ const Portfolio = () => {
 
     // You need to get these 3 strings from emailjs.com (It's free)
     // Service ID, Template ID, Public Key
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+    emailjs.sendForm('service_ivhwv3g', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
       .then((result) => {
           alert("Message Sent Successfully! 🚀");
           e.target.reset();
