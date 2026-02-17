@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, ExternalLink, Database, Cpu, Send, BarChart3, LineChart, Brain } from 'lucide-react';
+import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const Portfolio = () => {
@@ -20,12 +20,11 @@ const Portfolio = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // 2. NEW EMAILJS LOGIC (Replaces Python Backend)
+  // 2. EMAILJS LOGIC
   const sendEmail = (e) => {
     e.preventDefault();
 
-    // You need to get these 3 strings from emailjs.com (It's free)
-    // Service ID, Template ID, Public Key
+    // Replaced with your actual keys
     emailjs.sendForm('service_ivhwv3g', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
       .then((result) => {
           alert("Message Sent Successfully! 🚀");
@@ -76,7 +75,7 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      {/* Hero Section - UPDATED FOR DATA ROLE */}
+      {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-start justify-center min-h-[80vh]">
         <p className="text-cyan-400 font-mono mb-4">Hi, my name is</p>
         <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
@@ -108,7 +107,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Skills Section - UPDATED ICONS FOR DATA */}
+      {/* Skills Section */}
       <section id="skills" className="py-10 bg-slate-900 border-y border-slate-800 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <p className="text-center text-sm font-mono text-slate-500 mb-8">CORE COMPETENCIES</p>
@@ -160,7 +159,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Contact Section - WIRED TO EMAILJS */}
+      {/* Contact Section */}
       <section id="contact" className="py-24 max-w-2xl mx-auto px-6 text-center">
         <p className="text-cyan-400 font-mono mb-4">02. What's Next?</p>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
@@ -186,6 +185,19 @@ const Portfolio = () => {
             <Send size={20} /> Send Message
           </button>
         </form>
+
+        {/* Social Links Section */}
+        <div className="flex justify-center gap-8 mb-8">
+            <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <Github size={30} />
+            </a>
+            <a href="https://www.linkedin.com/in/subhankarchand/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <Linkedin size={30} />
+            </a>
+            <a href="mailto:subhankarchand66@gmail.com" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <Mail size={30} />
+            </a>
+        </div>
 
         <p className="text-slate-500 font-mono text-sm">Designed & Built by Subhankar Chand</p>
       </section>
