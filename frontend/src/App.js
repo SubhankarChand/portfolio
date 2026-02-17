@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from "framer-motion"; // <--- Added Animation Library
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -79,8 +80,13 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-start justify-center min-h-[80vh]">
+      {/* Hero Section - UPDATED WITH ANIMATION */}
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.8 }}
+        className="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-start justify-center min-h-[80vh]"
+      >
         <p className="text-cyan-400 font-mono mb-4">Hi, my name is</p>
         <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
           Subhankar Chand.
@@ -109,7 +115,7 @@ const Portfolio = () => {
             Download CV
           </a>
         </div>
-      </section>
+      </motion.section>
 
       {/* Skills Section - WITH CHART */}
       <section id="skills" className="py-10 bg-slate-900 border-y border-slate-800 overflow-hidden">
