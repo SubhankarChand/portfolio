@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# 📊 Data Analyst & AI Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A professional portfolio showcasing data analytics, machine learning, and AI projects. Built with **React.js**, **Tailwind CSS**, and **Framer Motion**.
 
-## Available Scripts
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://portfolio-v1.vercel.app/) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-In the project directory, you can run:
+## 🌟 Overview
 
-### `npm start`
+This portfolio serves as a central hub for my work as a **Data Analyst & ML Engineer**. It is designed to bridge the gap between technical complexity and business value, featuring interactive data visualizations, detailed project breakdowns, and a seamless user experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Unlike standard static portfolios, this application features:
+* **Interactive Data Visualizations:** Custom-built charts using `Recharts` to display technical proficiency.
+* **Animations:** Smooth UI transitions powered by `Framer Motion`.
+* **No-Server Contact Form:** Integrated `EmailJS` for direct communication without a backend server.
+* **Responsive Design:** Fully optimized for mobile, tablet, and desktop screens.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+* **Frontend:** React.js, Tailwind CSS
+* **Visualization:** Recharts
+* **Animations:** Framer Motion, Lucide React (Icons)
+* **Deployment:** Vercel
+* **Form Handling:** EmailJS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📂 Key Projects Featured
 
-### `npm run build`
+| Project | Domain | Tech Stack |
+| :--- | :--- | :--- |
+| **Forest Fire Prediction** | Machine Learning | Python, Scikit-learn, Random Forest |
+| **AI Video Analytics** | Computer Vision | OpenCV, YOLOv8, Intel OpenVINO |
+| **Library Management System** | Web Development | Python, Flask, MySQL |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 How to Run Locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If you'd like to view the source code or run this locally:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/SubhankarChand/portfolio.git](https://github.com/SubhankarChand/portfolio.git)
+    cd portfolio
+    ```
 
-### `npm run eject`
+2.  **Install Dependencies:**
+    ```bash
+    cd frontend
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3.  **Run the App:**
+    ```bash
+    npm start
+    ```
+    Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📬 Contact
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+I am currently open to full-time opportunities in **Data Analytics** and **AI/ML Engineering**.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* **LinkedIn:** [Subhankar Chand](https://www.linkedin.com/in/subhankarchand/)
+* **Email:** [subhankarchand66@gmail.com](mailto:subhankarchand66@gmail.com)
+* **Portfolio:** [Live Site](https://portfolio-orpin-omega-akmfzlhpjj.vercel.app/)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+*Designed & Built by Subhankar Chand © 2026*
