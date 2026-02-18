@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from "framer-motion"; // <--- Added Animation Library
+import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail } from 'lucide-react';
+import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail, Award, BookOpen, Code } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const Portfolio = () => {
@@ -10,7 +10,6 @@ const Portfolio = () => {
   
   const fullText = "I transform data into actionable business insights.";
 
-  // Typewriter effect
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
@@ -21,7 +20,6 @@ const Portfolio = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // EmailJS Logic
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs.sendForm('service_ivhwv3g', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
@@ -34,26 +32,50 @@ const Portfolio = () => {
       });
   };
 
+  // --- DATA SECTIONS ---
+
+  const stats = [
+    { num: "10+", label: "Projects Completed" },
+    { num: "3+", label: "Years of Coding" },
+    { num: "13+", label: "Tech Skills" },
+  ];
+
+  const certifications = [
+    
+    {
+      title: "Intel Unnati Industrial Training 2025",
+      issuer: "Intel ",
+      date: "April 2025",
+      desc: "AI-powered customer sentiment and feedback analysis using OpenVINO. Extract insights from customer behavior and engagement data to improve decision-making. Optimized for Intel hardware to ensure real-time performance and efficiency."
+    },
+    {
+      title: "Getting started with Artificial Intelligence. ",
+      issuer: "IBM SkillsBuild ",
+      date: "August 2025",
+      desc: "Developed a foundational understanding of AI concepts, including machine learning, deep learning, and neural networks.Explored ethical considerations and real-world applications of AI in modern software solutions."
+    }
+  ];
+
   const projects = [
     {
       title: "Forest Fire Prediction",
       category: "ml",
-      description: "Machine learning pipeline using Random Forest to predict forest fires with 90% accuracy based on meteorological data. Includes robust EDA and feature engineering.",
-      tags: ["Python", "Scikit-learn", "Pandas", "Random Forest"],
+      description: "Machine learning pipeline using Random Forest to predict forest fires with 90% accuracy based on meteorological data.",
+      tags: ["Python", "Scikit-learn", "Pandas"],
       links: { demo: "#", code: "https://github.com/SubhankarChand" } 
     },
     {
       title: "AI Video Analytics",
       category: "ai",
-      description: "Real-time Customer Experience Analytics System for retail. Leverages computer vision to track visitor footfall and analyze customer sentiment (emotion) from live video feeds.",
-      tags: ["OpenCV", "Intel OpenVINO™", "YOLOv8", "Flask"],
+      description: "Real-time Customer Experience Analytics System for retail. Leverages computer vision to track visitor footfall and emotion.",
+      tags: ["OpenCV", "YOLOv8", "Flask"],
       links: { demo: "#", code: "https://github.com/SubhankarChand/AI-Powered-Video-Analytics-with-OpenVINO" }
     },
     {
       title: "Library Management System",
       category: "web",
-      description: "KitabGhar is a full-featured, web-based library management system built with Python (Flask). It provides a clean interface for managing digital and physical libraries.",
-      tags: ["Python 3", "Flask", "MySQL"],
+      description: "KitabGhar is a full-featured, web-based library management system built with Python (Flask) and MySQL.",
+      tags: ["Python", "Flask", "MySQL"],
       links: { demo: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
     }
   ];
@@ -66,89 +88,166 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white">
+    <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
       
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="text-xl font-bold text-cyan-400 font-mono">SC.</div>
-          <div className="flex gap-6 text-sm font-medium">
+          <div className="hidden md:flex gap-6 text-sm font-medium">
             <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
+            <a href="#certifications" className="hover:text-cyan-400 transition-colors">Certifications</a>
             <a href="#skills" className="hover:text-cyan-400 transition-colors">Skills</a>
-            <a href="#contact" className="px-4 py-2 bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20 hover:bg-cyan-500 hover:text-white transition-all">Contact Me</a>
+            <a href="#contact" className="px-4 py-2 bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20 hover:bg-cyan-500 hover:text-white transition-all">Contact</a>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section - UPDATED WITH ANIMATION */}
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }}
-        className="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-start justify-center min-h-[80vh]"
-      >
-        <p className="text-cyan-400 font-mono mb-4">Hi, my name is</p>
-        <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
-          Subhankar Chand.
-        </h1>
-        
-        <div className="min-h-[120px] md:min-h-[160px] mb-8">
-            <h2 className="text-4xl md:text-6xl font-bold text-slate-400 leading-tight">
-            {typedText}<span className="animate-pulse text-cyan-400">|</span>
-            </h2>
-        </div>
-
-        <p className="max-w-2xl text-lg text-slate-400 mb-10 leading-relaxed">
-          I'm a final-year B.Tech student specializing in <span className="text-cyan-400">Data Science & ML</span>. 
-          I bridge the gap between technical data and business strategy using <span className="text-cyan-400">Python, SQL, and Predictive Modeling</span>.
-        </p>
-
-        <div className="flex gap-4">
-          <a href="#projects" className="px-8 py-4 bg-cyan-500 text-white rounded-lg font-bold hover:bg-cyan-600 transition-all shadow-lg shadow-cyan-500/25">
-            Check my Work
-          </a>
-          <a 
-            href="/resume.pdf" 
-            download="Subhankar_Chand_Resume.pdf"
-            className="px-8 py-4 bg-transparent border border-slate-700 text-white rounded-lg font-bold hover:border-cyan-400 transition-all flex items-center justify-center"
-          >
-            Download CV
-          </a>
-        </div>
-      </motion.section>
-
-      {/* Skills Section - WITH CHART */}
-      <section id="skills" className="py-10 bg-slate-900 border-y border-slate-800 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-center text-sm font-mono text-slate-500 mb-8">CORE COMPETENCIES</p>
+      {/* Hero Section - UPDATED LAYOUT (Profile + Stats) */}
+      <section className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           
-          {/* Icons Row */}
-          <div className="flex justify-center gap-12 flex-wrap opacity-70 grayscale hover:grayscale-0 transition-all duration-500 mb-10">
-            <div className="flex flex-col items-center gap-2"><BarChart3 size={40} /><span className="text-xs">Data Analysis</span></div>
-            <div className="flex flex-col items-center gap-2"><Database size={40} /><span className="text-xs">SQL / Python</span></div>
-            <div className="flex flex-col items-center gap-2"><Brain size={40} /><span className="text-xs">Machine Learning</span></div>
-            <div className="flex flex-col items-center gap-2"><LineChart size={40} /><span className="text-xs">Business Intel</span></div>
+          {/* Left: Text Content */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.8 }}
+            className="flex-1 text-center lg:text-left"
+          >
+            <p className="text-cyan-400 font-mono mb-4">Hi, I am</p>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Subhankar Chand.
+            </h1>
+            <div className="h-20 mb-6">
+                <h2 className="text-2xl md:text-4xl font-bold text-slate-400 leading-tight">
+                {typedText}<span className="animate-pulse text-cyan-400">|</span>
+                </h2>
+            </div>
+            <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-8 leading-relaxed">
+              Aspiring <span className="text-cyan-400">AI & Data Analyst</span> bringing strong analytical expertise. 
+              I build data-driven solutions and ML models to drive business innovation.
+            </p>
+
+            <div className="flex gap-4 justify-center lg:justify-start mb-12">
+              <a href="#projects" className="px-8 py-4 bg-cyan-500 text-white rounded-lg font-bold hover:bg-cyan-600 transition-all shadow-lg shadow-cyan-500/25">
+                Check Work
+              </a>
+              <a href="/resume.pdf" download className="px-8 py-4 bg-transparent border border-slate-700 text-white rounded-lg font-bold hover:border-cyan-400 transition-all">
+                Download CV
+              </a>
+            </div>
+
+            {/* Stats Row - Like the Reference */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-8 border-t border-slate-800 pt-8">
+              {stats.map((stat, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <h3 className="text-3xl font-bold text-white">{stat.num}</h3>
+                  <p className="text-sm text-slate-500 w-20 leading-tight">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right: Profile Image with Glow */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.8 }}
+            className="flex-1 relative"
+          >
+             {/* Glowing Background Blob */}
+            <div className="absolute inset-0 bg-cyan-500 blur-[100px] opacity-20 rounded-full"></div>
+            
+            {/* Image Container - Circular or Rounded Rect */}
+            <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-800 rounded-full border-4 border-slate-700 overflow-hidden shadow-2xl">
+              {/* REPLACE '/profile.png' WITH YOUR ACTUAL PHOTO in frontend/public/ folder */}
+              {/* If no photo exists, this API generates a cool avatar based on your name */}
+              <img 
+                src="/profile.png" 
+                onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'}
+                alt="Subhankar Chand" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Certifications Section - NEW! */}
+      <section id="certifications" className="py-20 bg-slate-900/50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">01.</span> Certifications & Training</h2>
+            <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
 
-          {/* New Professional Chart */}
-          <div className="h-64 w-full max-w-2xl mx-auto">
-            <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={skillData} layout="vertical" margin={{ left: 20 }}>
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" width={80} stroke="#94a3b8" tick={{fontSize: 12}} />
-                <Tooltip cursor={{fill: '#1e293b'}} contentStyle={{backgroundColor: '#0f172a', border: '1px solid #334155', color: '#fff'}} />
-                <Bar dataKey="level" fill="#22d3ee" radius={[0, 4, 4, 0]} barSize={20} />
-                </BarChart>
-            </ResponsiveContainer>
-           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {certifications.map((cert, index) => (
+              <div key={index} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-all group">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-3 bg-cyan-500/10 rounded-lg text-cyan-400">
+                    <Award size={24} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-full">{cert.date}</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
+                <p className="text-sm text-cyan-500 mb-4">{cert.issuer}</p>
+                <p className="text-slate-400 text-sm leading-relaxed">{cert.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* Skills Section - WITH CHART */}
+      <section id="skills" className="py-20 bg-slate-900 border-y border-slate-800 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+           <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">02.</span> Technical Arsenal</h2>
+            <div className="h-px bg-slate-800 flex-grow"></div>
+          </div>
+          
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+             {/* Chart Side */}
+            <div className="w-full lg:w-1/2 h-64">
+                <p className="text-center text-sm font-mono text-slate-500 mb-6">PROFICIENCY LEVELS</p>
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={skillData} layout="vertical" margin={{ left: 0 }}>
+                    <XAxis type="number" hide />
+                    <YAxis dataKey="name" type="category" width={80} stroke="#94a3b8" tick={{fontSize: 12}} />
+                    <Tooltip cursor={{fill: '#1e293b'}} contentStyle={{backgroundColor: '#0f172a', border: '1px solid #334155', color: '#fff'}} />
+                    <Bar dataKey="level" fill="#22d3ee" radius={[0, 4, 4, 0]} barSize={20} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+
+            {/* Icons Grid Side - Like Reference "Arsenal" */}
+            <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Code size={20}/> <h4 className="font-bold text-white">Programming</h4></div>
+                    <p className="text-sm text-slate-400">Python, SQL, JavaScript, C++</p>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><BarChart3 size={20}/> <h4 className="font-bold text-white">Analysis</h4></div>
+                    <p className="text-sm text-slate-400">Pandas, NumPy, PowerBI, Excel</p>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Brain size={20}/> <h4 className="font-bold text-white">AI & ML</h4></div>
+                    <p className="text-sm text-slate-400">Scikit-learn, TensorFlow, YOLO, OpenCV</p>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Database size={20}/> <h4 className="font-bold text-white">Tools</h4></div>
+                    <p className="text-sm text-slate-400">Git, VS Code, Jupyter, MySQL</p>
+                </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="py-24 max-w-6xl mx-auto px-6">
         <div className="flex items-center gap-4 mb-12">
-          <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">01.</span> Featured Projects</h2>
+          <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">03.</span> Featured Projects</h2>
           <div className="h-px bg-slate-800 flex-grow"></div>
         </div>
 
@@ -186,7 +285,7 @@ const Portfolio = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 max-w-2xl mx-auto px-6 text-center">
-        <p className="text-cyan-400 font-mono mb-4">02. What's Next?</p>
+        <p className="text-cyan-400 font-mono mb-4">04. What's Next?</p>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
         <p className="text-slate-400 text-lg mb-10">
             I'm currently looking for new opportunities in <span className="text-cyan-400">Data Analytics & AI</span>. 
@@ -211,7 +310,6 @@ const Portfolio = () => {
           </button>
         </form>
 
-        {/* Social Links Section */}
         <div className="flex justify-center gap-8 mb-8">
             <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
                 <Github size={30} />
