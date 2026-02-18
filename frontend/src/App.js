@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail, Award, BookOpen, Code } from 'lucide-react';
+import { Github, ExternalLink, Database, Send, BarChart3, LineChart, Brain, Linkedin, Mail, Award, BookOpen, Code, Terminal, Users, Search } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const Portfolio = () => {
@@ -52,7 +52,15 @@ const Portfolio = () => {
       title: "Getting started with Artificial Intelligence. ",
       issuer: "IBM SkillsBuild ",
       date: "August 2025",
-      desc: "Developed a foundational understanding of AI concepts, including machine learning, deep learning, and neural networks.Explored ethical considerations and real-world applications of AI in modern software solutions."
+      desc: "Developed a foundational understanding of AI concepts, including machine learning, deep learning, and neural networks.Explored ethical considerations and real-world applications of AI in modern software solutions.",
+      link: "https://www.credly.com/badges/3ec663c7-b1c0-4310-9271-5916f5b808a2/public_url" 
+    },
+    {
+      title: "Journey to Cloud: Envisioning Your Solution ",
+      issuer: "IBM SkillsBuild ",
+      date: "August 2025",
+      desc: "Mastered cloud computing fundamentals and the architecture required to design scalable cloud-based solutions.Focused on identifying business problems and mapping them to cloud service models.",
+      link: "https://www.credly.com/badges/05320164-a4ff-448f-88fb-a6e4c2f60438/public_url" 
     }
   ];
 
@@ -93,7 +101,7 @@ const Portfolio = () => {
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-xl font-bold text-cyan-400 font-mono">SC.</div>
+          <div className="text-xl font-bold text-cyan-400 font-mono">Subhankar Chand</div>
           <div className="hidden md:flex gap-6 text-sm font-medium">
             <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
             <a href="#certifications" className="hover:text-cyan-400 transition-colors">Certifications</a>
@@ -173,7 +181,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Certifications Section - NEW! */}
+      {/* Certifications Section  */}
       <section id="certifications" className="py-20 bg-slate-900/50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-4 mb-12">
@@ -183,17 +191,28 @@ const Portfolio = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {certifications.map((cert, index) => (
-              <div key={index} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-all group">
+              // CHECK THIS: The outer element MUST be an <a> tag
+              <a 
+                key={index} 
+                href={cert.link ? cert.link : "#"} // Uses the link if it exists, or stays on page if not
+                target={cert.link ? "_blank" : "_self"} // Opens in new tab only if link exists
+                rel="noopener noreferrer" 
+                className={`block bg-slate-800 p-6 rounded-xl border border-slate-700 transition-all group h-full flex flex-col ${cert.link ? 'hover:border-cyan-400 hover:bg-slate-800/80 cursor-pointer' : 'cursor-default'}`}
+              >
                 <div className="flex justify-between items-start mb-4">
-                  <div className="p-3 bg-cyan-500/10 rounded-lg text-cyan-400">
+                  <div className="p-3 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors">
                     <Award size={24} />
                   </div>
-                  <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-full">{cert.date}</span>
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-full mb-2">{cert.date}</span>
+                    {/* Only show the "External Link" icon if a link exists */}
+                    {cert.link && <ExternalLink size={16} className="text-slate-600 group-hover:text-cyan-400" />}
+                  </div>
                 </div>
                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
                 <p className="text-sm text-cyan-500 mb-4">{cert.issuer}</p>
-                <p className="text-slate-400 text-sm leading-relaxed">{cert.desc}</p>
-              </div>
+                <p className="text-slate-400 text-sm leading-relaxed flex-grow">{cert.desc}</p>
+              </a>
             ))}
           </div>
         </div>
@@ -221,23 +240,73 @@ const Portfolio = () => {
                 </ResponsiveContainer>
             </div>
 
-            {/* Icons Grid Side - Like Reference "Arsenal" */}
-            <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
-                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Code size={20}/> <h4 className="font-bold text-white">Programming</h4></div>
-                    <p className="text-sm text-slate-400">Python, SQL, JavaScript, C++</p>
+            {/* Icons Grid Side - Professional "Arsenal" Layout */}
+            <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* 1. Programming */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <Terminal size={22}/> 
+                        <h4 className="font-bold text-white text-base">Programming</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Python, C, SQL (MySQL)
+                    </p>
                 </div>
-                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><BarChart3 size={20}/> <h4 className="font-bold text-white">Analysis</h4></div>
-                    <p className="text-sm text-slate-400">Pandas, NumPy, PowerBI, Excel</p>
+
+                {/* 2. AI & ML */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <Brain size={22}/> 
+                        <h4 className="font-bold text-white text-base">AI & Machine Learning</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Supervised & Unsupervised Learning, Model Training & Evaluation, Scikit-Learn, NumPy, Pandas
+                    </p>
                 </div>
-                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Brain size={20}/> <h4 className="font-bold text-white">AI & ML</h4></div>
-                    <p className="text-sm text-slate-400">Scikit-learn, TensorFlow, YOLO, OpenCV</p>
+
+                {/* 3. Data Analytics */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <BarChart3 size={22}/> 
+                        <h4 className="font-bold text-white text-base">Data Analytics</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Data Cleaning, Feature Engineering, EDA, Excl, Power BI, Matplotlib, Seaborn
+                    </p>
                 </div>
-                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                    <div className="flex items-center gap-3 mb-2 text-cyan-400"><Database size={20}/> <h4 className="font-bold text-white">Tools</h4></div>
-                    <p className="text-sm text-slate-400">Git, VS Code, Jupyter, MySQL</p>
+
+                {/* 4. Tools */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <Database size={22}/> 
+                        <h4 className="font-bold text-white text-base">Tools & Platforms</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Git, GitHub, VS Code, Jupyter Notebooks, MySQL Workbench
+                    </p>
+                </div>
+
+                {/* 5. Professional Skills */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <Search size={22}/> 
+                        <h4 className="font-bold text-white text-base">Problem Solving</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Analytical Thinking, Debugging, Task Prioritization, Quality-Focused Approach
+                    </p>
+                </div>
+
+                {/* 6. Communication */}
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-cyan-400/50 transition-colors">
+                    <div className="flex items-center gap-3 mb-3 text-cyan-400">
+                        <Users size={22}/> 
+                        <h4 className="font-bold text-white text-base">Collaboration</h4>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Verbal & Written Communication, Presentation Skills, Teamwork, Adaptability
+                    </p>
                 </div>
             </div>
           </div>
