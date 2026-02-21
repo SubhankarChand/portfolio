@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { 
   Github, ExternalLink, Database, Send, BarChart3, 
   Brain, Linkedin, Mail, Award, Terminal, Users, Search, 
-  Download, ArrowRight, Menu, X 
+  Download, ArrowRight, Menu, X, Briefcase, GraduationCap, Calendar 
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -106,7 +106,7 @@ const Portfolio = () => {
       category: "ml",
       description: "Machine learning pipeline using Random Forest to predict forest fires with 90% accuracy based on meteorological data.",
       tags: ["Python", "Scikit-learn", "Pandas"],
-      embedUrl: null, // No presentation yet
+      embedUrl: "https://gamma.app/embed/8686ojoyd8pvnm3", 
       links: { tryIt: "#", code: "https://github.com/SubhankarChand" } 
     },
     {
@@ -114,7 +114,7 @@ const Portfolio = () => {
       category: "ai",
       description: "Real-time Customer Experience Analytics System for retail. Leverages computer vision to track visitor footfall and emotion.",
       tags: ["OpenCV", "YOLOv8", "Flask"],
-      embedUrl: "https://gamma.app/embed/r4myqcr1kjw7xcl", // <--- YOUR GAMMA LINK
+      embedUrl: "https://gamma.app/embed/r4myqcr1kjw7xcl", // <--- GAMMA LINK
       links: { tryIt: "#", code: "https://github.com/SubhankarChand/AI-Powered-Video-Analytics-with-OpenVINO" }
     },
     {
@@ -122,7 +122,7 @@ const Portfolio = () => {
       category: "web",
       description: "KitabGhar is a full-featured, web-based library management system built with Python (Flask) and MySQL.",
       tags: ["Python", "Flask", "MySQL"],
-      embedUrl: null, // No presentation yet
+      embedUrl: "https://gamma.app/embed/ljzh92euombkrni", 
       links: { tryIt: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
     }
   ];
@@ -238,7 +238,75 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* NEW: Experience & Education Timeline Section */}
+      <section id="journey" className="py-24 bg-slate-900/30 border-t border-slate-800">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex items-center gap-4 mb-16">
+            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">00.</span> My Journey</h2>
+            <div className="h-px bg-slate-800 flex-grow"></div>
+          </div>
+
+          <div className="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
+            
+            {/* Timeline Item 1: Current Status */}
+            <div className="relative pl-8 md:pl-12 group">
+              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-cyan-500 border-4 border-[#0f172a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <GraduationCap size={20} className="text-cyan-400" />
+                  B.Tech in Computer Science
+                </h3>
+                <span className="flex items-center gap-1 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full w-max border border-cyan-500/20">
+                  <Calendar size={14} /> 2022 - 2026
+                </span>
+              </div>
+              <h4 className="text-slate-400 font-medium mb-3">Final Year Undergraduate</h4>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Specializing in Data Science, Machine Learning, and Artificial Intelligence. Consistently applying theoretical concepts to real-world projects, bridging the gap between academic algorithms and business solutions.
+              </p>
+            </div>
+
+            {/* Timeline Item 2: Intel Training */}
+            <div className="relative pl-8 md:pl-12 group">
+              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Briefcase size={20} className="text-cyan-400" />
+                  Machine Learning Industrial Trainee
+                </h3>
+                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
+                  <Calendar size={14} /> April 2025
+                </span>
+              </div>
+              <h4 className="text-slate-400 font-medium mb-3">Intel Unnati</h4>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Engineered an AI-powered sentiment analysis system leveraging OpenVINO. Focused on deep learning model optimization and extracting actionable business insights from customer behavioral data.
+              </p>
+            </div>
+
+            {/* Timeline Item 3: IBM SkillsBuild */}
+            <div className="relative pl-8 md:pl-12 group">
+              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Award size={20} className="text-cyan-400" />
+                  AI & Cloud Solutions Trainee
+                </h3>
+                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
+                  <Calendar size={14} /> Aug 2025 - Feb 2026
+                </span>
+              </div>
+              <h4 className="text-slate-400 font-medium mb-3">IBM SkillsBuild</h4>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Mastered core AI frameworks, neural networks, and scalable cloud architectures. Deployed cloud-native test applications and implemented enterprise-level digital transformation strategies.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section - UPDATED WITH HOVER LIFT EFFECTS */}
       <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6">
            <div className="flex items-center gap-4 mb-16">
@@ -246,8 +314,9 @@ const Portfolio = () => {
             <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
             {/* Programming */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Programming</h4>
@@ -256,8 +325,9 @@ const Portfolio = () => {
                     {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+            
             {/* AI & ML */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Brain size={22}/></div>
                     <h4 className="font-bold text-white text-lg">AI & ML</h4>
@@ -266,8 +336,9 @@ const Portfolio = () => {
                     {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+            
             {/* Data Analytics */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><BarChart3 size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Data Analytics</h4>
@@ -276,8 +347,9 @@ const Portfolio = () => {
                     {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+            
             {/* Tools */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Database size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Tools</h4>
@@ -286,8 +358,9 @@ const Portfolio = () => {
                     {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+             
              {/* Soft Skills */}
-             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Users size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Soft Skills</h4>
@@ -296,8 +369,9 @@ const Portfolio = () => {
                     {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+            
             {/* Core Concepts */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Search size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Core Concepts</h4>
@@ -306,6 +380,7 @@ const Portfolio = () => {
                     {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
+
           </div>
         </div>
       </section>
