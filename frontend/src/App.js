@@ -9,7 +9,12 @@ import emailjs from '@emailjs/browser';
 
 const Portfolio = () => {
   const [typedText, setTypedText] = useState('');
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // --- NEW STATE FOR THE PROJECT MODAL ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  
   const form = useRef();
   
   const fullText = "I transform data into actionable business insights.";
@@ -36,8 +41,23 @@ const Portfolio = () => {
       });
   };
 
-  // --- DATA SECTIONS ---
+  // --- MODAL LOGIC ---
+  const openModal = (e, project) => {
+    e.preventDefault();
+    if(project.embedUrl) {
+      setSelectedProject(project);
+      setIsModalOpen(true);
+    } else {
+      alert("Case study presentation coming soon! I am currently designing it.");
+    }
+  };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
+  // --- DATA SECTIONS ---
   const stats = [
     { num: "10+", label: "Projects Completed" },
     { num: "3+", label: "Years of Coding" },
@@ -86,57 +106,78 @@ const Portfolio = () => {
       category: "ml",
       description: "Machine learning pipeline using Random Forest to predict forest fires with 90% accuracy based on meteorological data.",
       tags: ["Python", "Scikit-learn", "Pandas"],
-      links: { demo: "#", code: "https://github.com/SubhankarChand" } 
+      embedUrl: null, // No presentation yet
+      links: { tryIt: "#", code: "https://github.com/SubhankarChand" } 
     },
     {
       title: "AI Video Analytics",
       category: "ai",
       description: "Real-time Customer Experience Analytics System for retail. Leverages computer vision to track visitor footfall and emotion.",
       tags: ["OpenCV", "YOLOv8", "Flask"],
-      links: { demo: "#", code: "https://github.com/SubhankarChand/AI-Powered-Video-Analytics-with-OpenVINO" }
+      embedUrl: "https://gamma.app/embed/r4myqcr1kjw7xcl", // <--- YOUR GAMMA LINK
+      links: { tryIt: "#", code: "https://github.com/SubhankarChand/AI-Powered-Video-Analytics-with-OpenVINO" }
     },
     {
       title: "Library Management System",
       category: "web",
       description: "KitabGhar is a full-featured, web-based library management system built with Python (Flask) and MySQL.",
       tags: ["Python", "Flask", "MySQL"],
-      links: { demo: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
+      embedUrl: null, // No presentation yet
+      links: { tryIt: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
     }
   ];
 
   return (
-    // RESTORED PREFERRED BACKGROUND COLOR
-    <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
       
+      {/* --- NEW: THE PRESENTATION MODAL --- */}
+      {isModalOpen && selectedProject && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
+          <div className="relative w-full max-w-5xl bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[85vh] animate-in fade-in zoom-in duration-300">
+            
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-900/50">
+              <div className="flex items-center gap-3">
+                <Brain className="text-cyan-400" size={24} />
+                <h3 className="text-xl font-bold text-white tracking-wide">{selectedProject.title} <span className="text-slate-500 font-normal">| Case Study</span></h3>
+              </div>
+              <button onClick={closeModal} className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-full transition-all">
+                <X size={24} />
+              </button>
+            </div>
+            
+            {/* Modal Body (Your Gamma Iframe) */}
+            <div className="flex-grow w-full h-full bg-[#0f172a]">
+              <iframe 
+                src={selectedProject.embedUrl} 
+                className="w-full h-full border-none" 
+                allow="fullscreen" 
+                title={`${selectedProject.title} Presentation`}
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          
-          {/* Logo */}
           <div className="text-xl font-bold text-white tracking-wide">
             Subhankar <span className="text-cyan-400">Chand</span>
           </div>
-
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
             <a href="#hero" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Home</a>
             <a href="#skills" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Skills</a>
             <a href="#projects" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Projects</a>
             <a href="#certifications" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Certifications</a>
-            
-            {/* Contact Pill Button */}
             <a href="#contact" className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold rounded-full shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all">
               Contact Me
             </a>
           </div>
-
-          {/* Mobile Menu Toggle */}
           <div className="md:hidden text-white cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
           </div>
         </div>
-        
-        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
              <div className="md:hidden bg-[#0f172a] border-b border-slate-800 p-4 flex flex-col gap-4 text-center">
                 <a href="#hero" onClick={() => setIsMenuOpen(false)}>Home</a>
@@ -148,17 +189,10 @@ const Portfolio = () => {
         )}
       </nav>
 
-      {/* Hero Section - RESTORED BACKGROUND, FIXED IMAGE COLOR */}
+      {/* Hero Section */}
       <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          
-          {/* Left: Text Content */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            transition={{ duration: 0.8 }}
-            className="flex-1 text-center lg:text-left"
-          >
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 text-center lg:text-left">
             <p className="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium tracking-wider text-cyan-400 uppercase bg-cyan-500/10 rounded-full border border-cyan-500/20">
               Data Analyst & ML Engineer
             </p>
@@ -174,30 +208,17 @@ const Portfolio = () => {
               I bridge the gap between complex data and strategic business decisions using <span className="text-cyan-400 font-semibold">AI, Python, and Predictive Modeling.</span>
             </p>
 
-            {/* PROFESSIONAL BUTTONS */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              
-              {/* Button 1: Download Resume */}
-              <a 
-                href="/resume.pdf" 
-                download="Subhankar_Chand_Resume.pdf"
-                className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all"
-              >
+              <a href="/resume.pdf" download="Subhankar_Chand_Resume.pdf" className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all">
                 <Download size={20} />
                 Download Resume
               </a>
-
-              {/* Button 2: Let's Connect */}
-              <a 
-                href="#contact" 
-                className="flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-slate-600 text-white rounded-full font-bold hover:border-cyan-400 hover:text-cyan-400 hover:-translate-y-1 transition-all"
-              >
+              <a href="#contact" className="flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-slate-600 text-white rounded-full font-bold hover:border-cyan-400 hover:text-cyan-400 hover:-translate-y-1 transition-all">
                 Let's Connect
                 <ArrowRight size={20} />
               </a>
             </div>
 
-            {/* Stats Row */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-12 border-t border-slate-800/50 pt-8">
               {stats.map((stat, index) => (
                 <div key={index} className="flex flex-col items-center lg:items-start">
@@ -208,142 +229,83 @@ const Portfolio = () => {
             </div>
           </motion.div>
 
-          {/* Right: Profile Image - FIXED COLOR */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            transition={{ duration: 0.8 }}
-            className="flex-1 relative"
-          >
-            {/* Glowing Background Blob */}
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500 blur-[120px] opacity-20 rounded-full"></div>
-            
-            {/* Image Container - FIXED: Removed grayscale class */}
             <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-900 rounded-full border-[6px] border-slate-800 overflow-hidden shadow-2xl group">
-              <img 
-                src="/profile.png" 
-                onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'}
-                alt="Subhankar Chand" 
-                // FIXED: Removed 'grayscale group-hover:grayscale-0'
-                className="w-full h-full object-cover transition-all duration-500"
-              />
+              <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover transition-all duration-500"/>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Skills Section - ADJUSTED CARD COLORS FOR BETTER CONTRAST */}
+      {/* Skills Section */}
       <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6">
            <div className="flex items-center gap-4 mb-16">
             <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">01.</span> Technical Arsenal</h2>
             <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
             {/* Programming */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                    <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <Terminal size={22}/> 
-                    </div>
+                    <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Programming</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
             {/* AI & ML */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <Brain size={22}/> 
-                    </div>
+                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Brain size={22}/></div>
                     <h4 className="font-bold text-white text-lg">AI & ML</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
             {/* Data Analytics */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <BarChart3 size={22}/> 
-                    </div>
+                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><BarChart3 size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Data Analytics</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
             {/* Tools */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <Database size={22}/> 
-                    </div>
+                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Database size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Tools</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
              {/* Soft Skills */}
              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <Users size={22}/> 
-                    </div>
+                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Users size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Soft Skills</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
             {/* Core Concepts */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/30 transition-all group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                        <Search size={22}/> 
-                    </div>
+                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Search size={22}/></div>
                     <h4 className="font-bold text-white text-lg">Core Concepts</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (
-                        <span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">
-                            {skill}
-                        </span>
-                    ))}
+                    {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -355,35 +317,22 @@ const Portfolio = () => {
             <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">02.</span> Certifications</h2>
             <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {certifications.map((cert, index) => (
-              <a 
-                key={index} 
-                href={cert.link ? cert.link : "#"} 
-                target={cert.link ? "_blank" : "_self"} 
-                rel="noopener noreferrer" 
-                // Adjusted card color to slate-800 to match theme better
-                className={`block bg-slate-800 p-8 rounded-2xl border border-slate-700 transition-all group h-full flex flex-col ${cert.link ? 'hover:border-cyan-500/40 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-900/10 cursor-pointer' : 'cursor-default'}`}
-              >
+              <a key={index} href={cert.link ? cert.link : "#"} target={cert.link ? "_blank" : "_self"} rel="noopener noreferrer" className={`block bg-slate-800 p-8 rounded-2xl border border-slate-700 transition-all group h-full flex flex-col ${cert.link ? 'hover:border-cyan-500/40 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-900/10 cursor-pointer' : 'cursor-default'}`}>
                 <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors">
-                    <Award size={28} />
-                  </div>
+                  <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><Award size={28} /></div>
                   {cert.link && <ExternalLink size={20} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />}
                 </div>
-                
                 <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
                 <div className="flex items-center justify-between mb-6">
                     <p className="text-sm text-cyan-500 font-bold">{cert.issuer}</p>
                     <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-md">{cert.date}</span>
                 </div>
-                
                 <ul className="space-y-3 flex-grow border-t border-slate-700/50 pt-4">
                   {cert.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
-                      <span className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-cyan-500/50 group-hover:bg-cyan-400"></span>
-                      {point}
+                      <span className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-cyan-500/50 group-hover:bg-cyan-400"></span>{point}
                     </li>
                   ))}
                 </ul>
@@ -401,33 +350,43 @@ const Portfolio = () => {
             <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              // Adjusted card color to slate-800
-              <div key={index} className="group bg-slate-800 rounded-2xl p-8 border border-slate-700 hover:border-cyan-500/30 transition-all hover:-translate-y-2 duration-300 flex flex-col shadow-lg">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400">
-                    {project.category === 'ai' || project.category === 'ml' ? <Brain size={28} /> : <Database size={28} />}
+              <div key={index} className="group bg-[#0f172a] rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all hover:-translate-y-2 duration-300 flex flex-col shadow-lg overflow-hidden">
+                <div className="p-8 pb-0 flex-grow">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:scale-110 transition-transform">
+                      {project.category === 'ai' || project.category === 'ml' ? <Brain size={28} /> : <Database size={28} />}
+                    </div>
+                    <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors" title="View Source Code">
+                      <Github size={24} />
+                    </a>
                   </div>
-                  <div className="flex gap-4 text-slate-400">
-                    <a href={project.links.code} target="_blank" rel="noopener noreferrer">
-                      <Github size={22} className="hover:text-cyan-400 cursor-pointer transition-colors" />
-                    </a>
-                    <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink size={22} className="hover:text-cyan-400 cursor-pointer transition-colors" />
-                    </a>
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{project.title}</h3>
+                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="text-xs font-mono text-cyan-300 bg-cyan-900/20 border border-cyan-900/50 px-3 py-1.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{project.title}</h3>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tags.map(tag => (
-                    <span key={tag} className="text-xs font-mono text-cyan-300 bg-cyan-900/30 px-3 py-1.5 rounded-full">
-                      {tag}
-                    </span>
-                  ))}
+
+                {/* Card Action Buttons */}
+                <div className="mt-auto flex border-t border-slate-800">
+                  <a href={project.links.tryIt} className="flex-1 text-center py-4 text-sm font-bold text-white bg-slate-800/30 hover:bg-cyan-600 transition-colors flex items-center justify-center gap-2">
+                    Try It Live <ExternalLink size={16} />
+                  </a>
+                  <div className="w-px bg-slate-800"></div>
+                  
+                  {/* --- NEW: THE MODAL TRIGGER BUTTON --- */}
+                  <button onClick={(e) => openModal(e, project)} className="flex-1 text-center py-4 text-sm font-bold text-cyan-400 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
+                    Learn More <ArrowRight size={16} />
+                  </button>
+                  
                 </div>
               </div>
             ))}
@@ -443,8 +402,6 @@ const Portfolio = () => {
             I'm actively looking for opportunities in <span className="text-cyan-400 font-semibold">Data Analytics & AI</span>. 
             Whether you have a question or just want to say hi, my inbox is always open!
         </p>
-        
-        {/* Adjusted form background to match slate theme */}
         <form ref={form} onSubmit={sendEmail} className="text-left bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700 mb-12 shadow-xl">
           <div className="mb-6">
             <label className="block text-sm font-bold text-slate-300 mb-2">Your Name</label>
@@ -462,19 +419,11 @@ const Portfolio = () => {
             <Send size={20} /> Send Message
           </button>
         </form>
-
         <div className="flex justify-center gap-8 mb-12">
-            <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1">
-                <Github size={24} />
-            </a>
-            <a href="https://www.linkedin.com/in/subhankarchand/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1">
-                <Linkedin size={24} />
-            </a>
-            <a href="mailto:subhankarchand66@gmail.com" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1">
-                <Mail size={24} />
-            </a>
+            <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Github size={24} /></a>
+            <a href="https://www.linkedin.com/in/subhankarchand/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Linkedin size={24} /></a>
+            <a href="mailto:subhankarchand66@gmail.com" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Mail size={24} /></a>
         </div>
-
         <p className="text-slate-600 font-mono text-sm">Designed & Built by Subhankar Chand</p>
       </section>
 
