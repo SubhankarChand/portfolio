@@ -31,7 +31,7 @@ const Portfolio = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    emailjs.sendForm('service_ivhwv3g', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
+    emailjs.sendForm('service_egkocln', 'template_7yfltxj', form.current, 'ehHOs4mjasVtnI70X')
       .then(() => {
           alert("Message Sent Successfully! 🚀");
           e.target.reset();
