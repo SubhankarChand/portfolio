@@ -238,7 +238,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* NEW: Experience & Education Timeline Section */}
+      {/* Experience & Education Timeline Section */}
       <section id="journey" className="py-24 bg-slate-900/30 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-6">
           <div className="flex items-center gap-4 mb-16">
@@ -248,15 +248,38 @@ const Portfolio = () => {
 
           <div className="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
             
-            {/* Timeline Item 1: Current Status */}
+            {/* Timeline Item 1: Shabd Internship (Current Status) */}
             <div className="relative pl-8 md:pl-12 group">
               <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-cyan-500 border-4 border-[#0f172a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Briefcase size={20} className="text-cyan-400" />
+                  AI Data Engineer Intern
+                </h3>
+                <span className="flex items-center gap-1 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full w-max border border-cyan-500/20">
+                  <Calendar size={14} /> Apr 2026 - Present
+                </span>
+              </div>
+              <div className="mb-3">
+                <a href="https://shabd.tech/" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-300 hover:text-cyan-400 flex items-center gap-2 w-max transition-colors">
+                  Shabd <ExternalLink size={16} />
+                </a>
+                <p className="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wide">Kolkata, West Bengal · On-site</p>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Engineering AI-driven data pipelines and machine learning models. Focusing on data extraction, scalable architecture, and intelligent processing to build solutions that go "Beyond Language Barriers".
+              </p>
+            </div>
+
+            {/* Timeline Item 2: B.Tech */}
+            <div className="relative pl-8 md:pl-12 group">
+              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                   <GraduationCap size={20} className="text-cyan-400" />
                   B.Tech in Computer Science
                 </h3>
-                <span className="flex items-center gap-1 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full w-max border border-cyan-500/20">
+                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
                   <Calendar size={14} /> 2022 - 2026
                 </span>
               </div>
@@ -266,7 +289,7 @@ const Portfolio = () => {
               </p>
             </div>
 
-            {/* Timeline Item 2: Intel Training */}
+            {/* Timeline Item 3: Intel Training */}
             <div className="relative pl-8 md:pl-12 group">
               <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
@@ -284,7 +307,7 @@ const Portfolio = () => {
               </p>
             </div>
 
-            {/* Timeline Item 3: IBM SkillsBuild */}
+            {/* Timeline Item 4: IBM SkillsBuild */}
             <div className="relative pl-8 md:pl-12 group">
               <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
@@ -305,7 +328,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
+      
       {/* Skills Section - UPDATED WITH HOVER LIFT EFFECTS */}
       <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6">
