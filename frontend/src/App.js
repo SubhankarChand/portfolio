@@ -10,11 +10,8 @@ import emailjs from '@emailjs/browser';
 const Portfolio = () => {
   const [typedText, setTypedText] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // --- NEW STATE FOR THE PROJECT MODAL ---
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  
   const form = useRef();
   
   const fullText = "I transform data into actionable business insights.";
@@ -41,7 +38,6 @@ const Portfolio = () => {
       });
   };
 
-  // --- MODAL LOGIC ---
   const openModal = (e, project) => {
     e.preventDefault();
     if(project.embedUrl) {
@@ -57,7 +53,92 @@ const Portfolio = () => {
     setSelectedProject(null);
   };
 
-  // --- DATA SECTIONS ---
+  // --- NEW: BULLETPROOF DURATION CALCULATOR ---
+  const formatDuration = (startStr, endStr) => {
+    const startDate = new Date(startStr);
+    // If endStr is blank ("") or "Present", use today's date
+    const endDate = (!endStr || endStr.toLowerCase() === 'present') ? new Date() : new Date(endStr);
+    
+    // Safety check in case the user types an invalid date string
+    if (isNaN(startDate.getTime())) return "";
+
+    // Calculate total months (inclusive)
+    let totalMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+    
+    // Failsafe: if dates are reversed or identical, make it at least 1 month
+    if (totalMonths <= 0) totalMonths = 1;
+
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    
+    let durationArray = [];
+    if (years > 0) durationArray.push(`${years} yr${years > 1 ? 's' : ''}`);
+    if (months > 0) durationArray.push(`${months} mo${months > 1 ? 's' : ''}`);
+    
+    return durationArray.join(' ');
+  };
+
+  const formatDisplayDate = (startStr, endStr) => {
+    const isPresent = !endStr || endStr.toLowerCase() === 'present';
+    return `${startStr} - ${isPresent ? 'Present' : endStr}`;
+  };
+
+  // ==========================================
+  // 📝 DATA SECTIONS (EDIT THESE MANUALLY)
+  // ==========================================
+
+  // --- 1. YOUR JOURNEY / EXPERIENCE ---
+  const journeyData = [
+    {
+      id: 1,
+      role: "AI Data Engineer Intern",
+      organization: "Shabd",
+      link: "https://shabd.tech/",
+      location: "Kolkata, West Bengal · On-site",
+      startDate: "Apr 2026",
+      endDate: "", // LEAVE BLANK FOR "PRESENT"
+      description: "Engineering AI-driven data pipelines and machine learning models. Focusing on data extraction, scalable architecture, and intelligent processing to build solutions that go 'Beyond Language Barriers'.",
+      Icon: Briefcase,
+      isCurrent: true
+    },
+    {
+      id: 2,
+      role: "B.Tech in Computer Science",
+      organization: "Final Year Undergraduate",
+      link: null,
+      location: null,
+      startDate: "Aug 2022",
+      endDate: "July 2026", 
+      description: "Specializing in Data Science, Machine Learning, and Artificial Intelligence. Consistently applying theoretical concepts to real-world projects, bridging the gap between academic algorithms and business solutions.",
+      Icon: GraduationCap,
+      isCurrent: false
+    },
+    {
+      id: 3,
+      role: "Industrial Trainee",
+      organization: "Intel Unnati",
+      link: null,
+      location: null,
+      startDate: "Feb 2025",
+      endDate: "Apr 2025", 
+      description: "Engineered an AI-powered sentiment analysis system leveraging OpenVINO. Focused on deep learning model optimization and extracting actionable business insights from customer behavioral data.",
+      Icon: Briefcase,
+      isCurrent: false
+    },
+    {
+      id: 4,
+      role: "AI & Cloud Solutions Certification",
+      organization: "IBM SkillsBuild",
+      link: null,
+      location: null,
+      startDate: "Aug 2025",
+      endDate: "Aug 2025",
+      description: "Mastered core AI frameworks, neural networks, and scalable cloud architectures. Deployed cloud-native test applications and implemented enterprise-level digital transformation strategies.",
+      Icon: Award,
+      isCurrent: false
+    }
+  ];
+
   const stats = [
     { num: "10+", label: "Projects Completed" },
     { num: "3+", label: "Years of Coding" },
@@ -69,33 +150,21 @@ const Portfolio = () => {
       title: "Intel Unnati Industrial Training 2025",
       issuer: "Intel",
       date: "April 2025",
-      points: [
-        "Built AI-powered sentiment analysis system using OpenVINO.",
-        "Optimized deep learning models for Intel hardware acceleration.",
-        "Analyzed customer behavior data to improve decision-making efficiency."
-      ],
+      points: ["Built AI-powered sentiment analysis system using OpenVINO.", "Optimized deep learning models for Intel hardware acceleration.", "Analyzed customer behavior data to improve decision-making efficiency."],
       link: "#"
     },
     {
       title: "Artificial Intelligence Fundamentals",
       issuer: "IBM SkillsBuild",
       date: "August 2025",
-      points: [
-        "Mastered core AI concepts: Neural Networks, Deep Learning, & ML.",
-        "Explored ethical AI frameworks and real-world deployment strategies.",
-        "Applied machine learning algorithms to modern software solutions."
-      ],
+      points: ["Mastered core AI concepts: Neural Networks, Deep Learning, & ML.", "Explored ethical AI frameworks and real-world deployment strategies.", "Applied machine learning algorithms to modern software solutions."],
       link: "https://www.credly.com/badges/3ec663c7-b1c0-4310-9271-5916f5b808a2/public_url" 
     },
     {
       title: "Journey to Cloud: Solution Envisioning",
       issuer: "IBM SkillsBuild",
       date: "August 2025",
-      points: [
-        "Designed scalable cloud architectures using IaaS, PaaS, and SaaS models.",
-        "Deployed test pilot applications using IBM Code Engine.",
-        "Implemented Agile & Enterprise Design Thinking for digital transformation."
-      ],
+      points: ["Designed scalable cloud architectures using IaaS, PaaS, and SaaS models.", "Deployed test pilot applications using IBM Code Engine.", "Implemented Agile & Enterprise Design Thinking for digital transformation."],
       link: "https://www.credly.com/badges/05320164-a4ff-448f-88fb-a6e4c2f60438/public_url" 
     }
   ];
@@ -130,12 +199,10 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
       
-      {/* --- THE PRESENTATION MODAL --- */}
+      {/* THE PRESENTATION MODAL */}
       {isModalOpen && selectedProject && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-5xl bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[85vh] animate-in fade-in zoom-in duration-300">
-            
-            {/* Modal Header */}
             <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-900/50">
               <div className="flex items-center gap-3">
                 <Brain className="text-cyan-400" size={24} />
@@ -145,15 +212,8 @@ const Portfolio = () => {
                 <X size={24} />
               </button>
             </div>
-            
-            {/* Modal Body (Your Gamma Iframe) */}
             <div className="flex-grow w-full h-full bg-[#0f172a]">
-              <iframe 
-                src={selectedProject.embedUrl} 
-                className="w-full h-full border-none" 
-                allow="fullscreen" 
-                title={`${selectedProject.title} Presentation`}
-              ></iframe>
+              <iframe src={selectedProject.embedUrl} className="w-full h-full border-none" allow="fullscreen" title={`${selectedProject.title} Presentation`}></iframe>
             </div>
           </div>
         </div>
@@ -193,23 +253,17 @@ const Portfolio = () => {
       <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 text-center lg:text-left">
-            
-            {/* UPDATED BADGE */}
             <p className="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium tracking-wider text-cyan-400 uppercase bg-cyan-500/10 rounded-full border border-cyan-500/20">
               AI Data Engineer | ML Enthusiast
             </p>
-            
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
               Subhankar Chand.
             </h1>
-            
             <div className="h-20 mb-6">
                 <h2 className="text-xl md:text-3xl font-medium text-slate-400 leading-relaxed">
                 {typedText}<span className="animate-pulse text-cyan-400">|</span>
                 </h2>
             </div>
-            
-            {/* UPDATED BIO PARAGRAPH */}
             <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-10 leading-relaxed">
               Currently an <span className="text-cyan-400 font-semibold">AI Data Engineer Intern at Shabd</span>. I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
             </p>
@@ -238,7 +292,6 @@ const Portfolio = () => {
           <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500 blur-[120px] opacity-20 rounded-full"></div>
             <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-900 rounded-full border-[6px] border-slate-800 overflow-hidden shadow-2xl group">
-              {/* UPDATED IMAGE TAG WITH OBJECT-TOP */}
               <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover object-top transition-all duration-500"/>
             </div>
           </motion.div>
@@ -255,87 +308,53 @@ const Portfolio = () => {
 
           <div className="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
             
-            {/* Timeline Item 1: Shabd Internship (Current Status) */}
-            <div className="relative pl-8 md:pl-12 group">
-              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-cyan-500 border-4 border-[#0f172a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Briefcase size={20} className="text-cyan-400" />
-                  AI Data Engineer Intern
-                </h3>
-                <span className="flex items-center gap-1 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full w-max border border-cyan-500/20">
-                  <Calendar size={14} /> Apr 2026 - Present
-                </span>
+            {/* DYNAMICALLY RENDERING JOURNEY ITEMS */}
+            {journeyData.map((item) => (
+              <div key={item.id} className="relative pl-8 md:pl-12 group">
+                
+                {/* Timeline Dot */}
+                <div className={`absolute -left-[11px] top-1 h-5 w-5 rounded-full border-4 border-[#0f172a] transition-all 
+                  ${item.isCurrent ? 'bg-cyan-500 group-hover:scale-125 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'bg-slate-700 group-hover:bg-cyan-400'}`}>
+                </div>
+                
+                {/* Header Row */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <item.Icon size={20} className="text-cyan-400" />
+                    {item.role}
+                  </h3>
+                  
+                  <span className={`flex items-center gap-1 text-xs font-mono px-3 py-1 rounded-full w-max border 
+                    ${item.isCurrent ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' : 'text-slate-400 bg-slate-800 border-slate-700'}`}>
+                    <Calendar size={14} /> 
+                    {formatDisplayDate(item.startDate, item.endDate)} · {formatDuration(item.startDate, item.endDate)}
+                  </span>
+                </div>
+                
+                {/* Subheader / Company */}
+                <div className="mb-3">
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-300 hover:text-cyan-400 flex items-center gap-2 w-max transition-colors">
+                      {item.organization} <ExternalLink size={16} />
+                    </a>
+                  ) : (
+                    <h4 className="text-slate-400 font-medium">{item.organization}</h4>
+                  )}
+                  {item.location && <p className="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wide">{item.location}</p>}
+                </div>
+                
+                {/* Description */}
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {item.description}
+                </p>
+                
               </div>
-              <div className="mb-3">
-                <a href="https://shabd.tech/" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-300 hover:text-cyan-400 flex items-center gap-2 w-max transition-colors">
-                  Shabd <ExternalLink size={16} />
-                </a>
-                <p className="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wide">Kolkata, West Bengal · On-site</p>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Engineering AI-driven data pipelines and machine learning models. Focusing on data extraction, scalable architecture, and intelligent processing to build solutions that go "Beyond Language Barriers".
-              </p>
-            </div>
-
-            {/* Timeline Item 2: B.Tech */}
-            <div className="relative pl-8 md:pl-12 group">
-              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <GraduationCap size={20} className="text-cyan-400" />
-                  B.Tech in Computer Science
-                </h3>
-                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
-                  <Calendar size={14} /> 2022 - 2026
-                </span>
-              </div>
-              <h4 className="text-slate-400 font-medium mb-3">Final Year Undergraduate</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                Specializing in Data Science, Machine Learning, and Artificial Intelligence. Consistently applying theoretical concepts to real-world projects, bridging the gap between academic algorithms and business solutions.
-              </p>
-            </div>
-
-            {/* Timeline Item 3: Intel Training */}
-            <div className="relative pl-8 md:pl-12 group">
-              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Briefcase size={20} className="text-cyan-400" />
-                  Machine Learning Industrial Trainee
-                </h3>
-                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
-                  <Calendar size={14} /> April 2025
-                </span>
-              </div>
-              <h4 className="text-slate-400 font-medium mb-3">Intel Unnati</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                Engineered an AI-powered sentiment analysis system leveraging OpenVINO. Focused on deep learning model optimization and extracting actionable business insights from customer behavioral data.
-              </p>
-            </div>
-
-            {/* Timeline Item 4: IBM SkillsBuild */}
-            <div className="relative pl-8 md:pl-12 group">
-              <div className="absolute -left-[11px] top-1 h-5 w-5 rounded-full bg-slate-700 border-4 border-[#0f172a] group-hover:bg-cyan-400 transition-colors"></div>
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Award size={20} className="text-cyan-400" />
-                  AI & Cloud Solutions Trainee
-                </h3>
-                <span className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full w-max border border-slate-700">
-                  <Calendar size={14} /> Aug 2025 - Feb 2026
-                </span>
-              </div>
-              <h4 className="text-slate-400 font-medium mb-3">IBM SkillsBuild</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                Mastered core AI frameworks, neural networks, and scalable cloud architectures. Deployed cloud-native test applications and implemented enterprise-level digital transformation strategies.
-              </p>
-            </div>
+            ))}
 
           </div>
         </div>
       </section>
-      
+
       {/* Skills Section */}
       <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6">
@@ -344,8 +363,6 @@ const Portfolio = () => {
             <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* Programming */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={22}/></div>
@@ -355,8 +372,6 @@ const Portfolio = () => {
                     {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-            
-            {/* AI & ML */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Brain size={22}/></div>
@@ -366,8 +381,6 @@ const Portfolio = () => {
                     {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-            
-            {/* Data Analytics */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><BarChart3 size={22}/></div>
@@ -377,8 +390,6 @@ const Portfolio = () => {
                     {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-            
-            {/* Tools */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Database size={22}/></div>
@@ -388,8 +399,6 @@ const Portfolio = () => {
                     {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-             
-             {/* Soft Skills */}
              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Users size={22}/></div>
@@ -399,8 +408,6 @@ const Portfolio = () => {
                     {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-            
-            {/* Core Concepts */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Search size={22}/></div>
@@ -410,7 +417,6 @@ const Portfolio = () => {
                     {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
                 </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -479,19 +485,14 @@ const Portfolio = () => {
                     ))}
                   </div>
                 </div>
-
-                {/* Card Action Buttons */}
                 <div className="mt-auto flex border-t border-slate-800">
                   <a href={project.links.tryIt} className="flex-1 text-center py-4 text-sm font-bold text-white bg-slate-800/30 hover:bg-cyan-600 transition-colors flex items-center justify-center gap-2">
                     Try It Live <ExternalLink size={16} />
                   </a>
                   <div className="w-px bg-slate-800"></div>
-                  
-                  {/* --- THE MODAL TRIGGER BUTTON --- */}
                   <button onClick={(e) => openModal(e, project)} className="flex-1 text-center py-4 text-sm font-bold text-cyan-400 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
                     Learn More <ArrowRight size={16} />
                   </button>
-                  
                 </div>
               </div>
             ))}
