@@ -171,6 +171,14 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: "AI Resume Analyzer",
+      category: "web",
+      description: "An AI-powered Resume Analyzer using NLP to automate resume screening. Features Skill Gap detection, TF-IDF similarity scoring, and professional PDF report generation..",
+      tags: ["Python", "Streamlit", "NLP"],
+      embedUrl: "#", 
+      links: { tryIt: "https://resume-analyzer-fqrcvl4aztjwtp8acbz8rf.streamlit.app/", code: "https://github.com/SubhankarChand/Resume-Analyzer" }
+    },
+    {
       title: "Forest Fire Prediction",
       category: "ml",
       description: "Machine learning pipeline using Random Forest to predict forest fires with 90% accuracy based on meteorological data.",
@@ -194,6 +202,7 @@ const Portfolio = () => {
       embedUrl: "https://gamma.app/embed/ljzh92euombkrni", 
       links: { tryIt: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
     }
+    
   ];
 
   return (
