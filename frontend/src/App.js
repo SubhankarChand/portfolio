@@ -114,7 +114,7 @@ const Portfolio = () => {
       category: "ai",
       description: "Real-time Customer Experience Analytics System for retail. Leverages computer vision to track visitor footfall and emotion.",
       tags: ["OpenCV", "YOLOv8", "Flask"],
-      embedUrl: "https://gamma.app/embed/r4myqcr1kjw7xcl", // <--- GAMMA LINK
+      embedUrl: "https://gamma.app/embed/r4myqcr1kjw7xcl", 
       links: { tryIt: "#", code: "https://github.com/SubhankarChand/AI-Powered-Video-Analytics-with-OpenVINO" }
     },
     {
@@ -130,7 +130,7 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
       
-      {/* --- NEW: THE PRESENTATION MODAL --- */}
+      {/* --- THE PRESENTATION MODAL --- */}
       {isModalOpen && selectedProject && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-5xl bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[85vh] animate-in fade-in zoom-in duration-300">
@@ -193,19 +193,25 @@ const Portfolio = () => {
       <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 text-center lg:text-left">
+            
+            {/* UPDATED BADGE */}
             <p className="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium tracking-wider text-cyan-400 uppercase bg-cyan-500/10 rounded-full border border-cyan-500/20">
-              Data Analyst & ML Engineer
+              AI Data Engineer | ML Enthusiast
             </p>
+            
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
               Subhankar Chand.
             </h1>
+            
             <div className="h-20 mb-6">
                 <h2 className="text-xl md:text-3xl font-medium text-slate-400 leading-relaxed">
                 {typedText}<span className="animate-pulse text-cyan-400">|</span>
                 </h2>
             </div>
+            
+            {/* UPDATED BIO PARAGRAPH */}
             <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-10 leading-relaxed">
-              I bridge the gap between complex data and strategic business decisions using <span className="text-cyan-400 font-semibold">AI, Python, and Predictive Modeling.</span>
+              Currently an <span className="text-cyan-400 font-semibold">AI Data Engineer Intern at Shabd</span>. I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
@@ -232,7 +238,8 @@ const Portfolio = () => {
           <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500 blur-[120px] opacity-20 rounded-full"></div>
             <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-900 rounded-full border-[6px] border-slate-800 overflow-hidden shadow-2xl group">
-              <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover transition-all duration-500"/>
+              {/* UPDATED IMAGE TAG WITH OBJECT-TOP */}
+              <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover object-top transition-all duration-500"/>
             </div>
           </motion.div>
         </div>
@@ -329,7 +336,7 @@ const Portfolio = () => {
         </div>
       </section>
       
-      {/* Skills Section - UPDATED WITH HOVER LIFT EFFECTS */}
+      {/* Skills Section */}
       <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-6xl mx-auto px-6">
            <div className="flex items-center gap-4 mb-16">
@@ -480,7 +487,7 @@ const Portfolio = () => {
                   </a>
                   <div className="w-px bg-slate-800"></div>
                   
-                  {/* --- NEW: THE MODAL TRIGGER BUTTON --- */}
+                  {/* --- THE MODAL TRIGGER BUTTON --- */}
                   <button onClick={(e) => openModal(e, project)} className="flex-1 text-center py-4 text-sm font-bold text-cyan-400 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
                     Learn More <ArrowRight size={16} />
                   </button>
