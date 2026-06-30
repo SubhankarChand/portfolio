@@ -171,6 +171,14 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: "Smart Coding Assistant",
+      category: "web",
+      description: "An AI-powered coding assistant that helps students prepare for coding interviews using Retrieval-Augmented Generation (RAG), Google Gemini, and LangChain",
+      tags: ["Python", "Streamlit", "RAG", "LangChain", "Google Gemini"],
+      embedUrl: "#", 
+      links: { tryIt: "https://smart-coding-assistant-cucqzselq3p8jngpgun6a3.streamlit.app/", code: "https://github.com/SubhankarChand/Smart-Coding-Assistant" }
+    },
+    {
       title: "AI Resume Analyzer",
       category: "web",
       description: "An AI-powered Resume Analyzer using NLP to automate resume screening. Features Skill Gap detection, TF-IDF similarity scoring, and professional PDF report generation..",
