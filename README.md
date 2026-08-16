@@ -1,4 +1,4 @@
-# 📊 Subhankar Chand | Data Analyst & ML Portfolio
+# 📊 Subhankar Chand | Data Engineer & ML Portfolio
 
 ![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
 ![Tailwind](https://img.shields.io/badge/Style-Tailwind_CSS-38bdf8?logo=tailwindcss)
@@ -6,8 +6,8 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🚀 About Me
-Hi, I'm **Subhankar Chand**, a final-year B.Tech student specializing in **Artificial Intelligence & Machine Learning**.  
-This portfolio showcases my work in **Data Analytics, Computer Vision, and Predictive Modeling**, bridging the gap between raw data and actionable business insights.
+Hi, I'm **Subhankar Chand**, B.Tech Graduateded student specializing in **Artificial Intelligence & Machine Learning**.  
+This portfolio showcases my work in **Data science, Computer Vision, and Machine Learning**, bridging the gap between raw data and actionable business insights.
 
 🔴 **Live Demo:** [Click here to view my Portfolio](https://portfolio-orpin-omega-akmfzlhpjj.vercel.app/) 
 
