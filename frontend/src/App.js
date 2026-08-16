@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
+import FloatingSkills from './FloatingSkills';
+import Footer from './Footer';
 import { 
   Github, ExternalLink, Database, Send, BarChart3, 
   Brain, Linkedin, Mail, Award, Terminal, Users, Search, 
@@ -53,19 +55,12 @@ const Portfolio = () => {
     setSelectedProject(null);
   };
 
-  // --- NEW: BULLETPROOF DURATION CALCULATOR ---
   const formatDuration = (startStr, endStr) => {
     const startDate = new Date(startStr);
-    // If endStr is blank ("") or "Present", use today's date
     const endDate = (!endStr || endStr.toLowerCase() === 'present') ? new Date() : new Date(endStr);
-    
-    // Safety check in case the user types an invalid date string
     if (isNaN(startDate.getTime())) return "";
 
-    // Calculate total months (inclusive)
     let totalMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
-    
-    // Failsafe: if dates are reversed or identical, make it at least 1 month
     if (totalMonths <= 0) totalMonths = 1;
 
     const years = Math.floor(totalMonths / 12);
@@ -83,11 +78,6 @@ const Portfolio = () => {
     return `${startStr} - ${isPresent ? 'Present' : endStr}`;
   };
 
-  // ==========================================
-  // 📝 DATA SECTIONS (EDIT THESE MANUALLY)
-  // ==========================================
-
-  // --- 1. YOUR JOURNEY / EXPERIENCE ---
   const journeyData = [
     {
       id: 1,
@@ -96,7 +86,7 @@ const Portfolio = () => {
       link: "https://shabd.tech/",
       location: "Kolkata, West Bengal · On-site",
       startDate: "Apr 2026",
-      endDate: "", // LEAVE BLANK FOR "PRESENT"
+      endDate: "", 
       description: "Engineering AI-driven data pipelines and machine learning models. Focusing on data extraction, scalable architecture, and intelligent processing to build solutions that go 'Beyond Language Barriers'.",
       Icon: Briefcase,
       isCurrent: true
@@ -210,13 +200,12 @@ const Portfolio = () => {
       embedUrl: "https://gamma.app/embed/ljzh92euombkrni", 
       links: { tryIt: "#", code: "https://github.com/SubhankarChand/Library-Management-System" }
     }
-    
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
+    // Added flex flex-col and min-h-screen here to ensure the footer stays at the very bottom
+    <div className="min-h-screen flex flex-col bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
       
-      {/* THE PRESENTATION MODAL */}
       {isModalOpen && selectedProject && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-5xl bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[85vh] animate-in fade-in zoom-in duration-300">
@@ -237,7 +226,7 @@ const Portfolio = () => {
       )}
 
       {/* Navbar */}
-      <nav className="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
+      <nav className="fixed top-0 w-full z-50 bg-[#0b1329]/80 backdrop-blur-md border-b border-slate-800/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="text-xl font-bold text-white tracking-wide">
             Subhankar <span className="text-cyan-400">Chand</span>
@@ -247,7 +236,8 @@ const Portfolio = () => {
             <a href="#skills" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Skills</a>
             <a href="#projects" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Projects</a>
             <a href="#certifications" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Certifications</a>
-            <a href="#contact" className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold rounded-full shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all">
+            {/* CHANGED: button to an anchor tag for smooth scrolling */}
+            <a href="#contact" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium py-2 px-6 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-300 inline-block text-center cursor-pointer">
               Contact Me
             </a>
           </div>
@@ -261,295 +251,294 @@ const Portfolio = () => {
                 <a href="#skills" onClick={() => setIsMenuOpen(false)}>Skills</a>
                 <a href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a>
                 <a href="#certifications" onClick={() => setIsMenuOpen(false)}>Certifications</a>
-                <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-cyan-400 font-bold">Contact Me</a>
+                {/* CHANGED: Added setIsMenuOpen(false) to close menu on mobile when clicked */}
+                <a href="#contact" onClick={() => setIsMenuOpen(false)} className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium py-2 px-6 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-300 inline-block text-center cursor-pointer">
+                    Contact Me
+                </a>
              </div>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 text-center lg:text-left">
-            <p className="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium tracking-wider text-cyan-400 uppercase bg-cyan-500/10 rounded-full border border-cyan-500/20">
-              AI Data Engineer | ML Enthusiast
-            </p>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-              Subhankar Chand.
-            </h1>
-            <div className="h-20 mb-6">
-                <h2 className="text-xl md:text-3xl font-medium text-slate-400 leading-relaxed">
-                {typedText}<span className="animate-pulse text-cyan-400">|</span>
-                </h2>
-            </div>
-            <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-10 leading-relaxed">
-              Currently an <span className="text-cyan-400 font-semibold">AI Data Engineer Intern at Shabd</span>. I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
-            </p>
+      {/* Main Content Area - Wrapped in flex-grow */}
+      <main className="flex-grow w-full">
+        {/* Hero Section */}
+        <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex flex-col justify-center">
+          <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 text-center lg:text-left">
+              <p className="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium tracking-wider text-cyan-400 uppercase bg-cyan-500/10 rounded-full border border-cyan-500/20">
+                AI Data Engineer | ML Enthusiast
+              </p>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                Subhankar Chand.
+              </h1>
+              <div className="h-20 mb-6">
+                  <h2 className="text-xl md:text-3xl font-medium text-slate-400 leading-relaxed">
+                  {typedText}<span className="animate-pulse text-cyan-400">|</span>
+                  </h2>
+              </div>
+              <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-10 leading-relaxed">
+                Currently an <span className="text-cyan-400 font-semibold">AI Data Engineer Intern at Shabd</span>. I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <a href="/resume.pdf" download="Subhankar_Chand_Resume.pdf" className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all">
-                <Download size={20} />
-                Download Resume
-              </a>
-              <a href="#contact" className="flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-slate-600 text-white rounded-full font-bold hover:border-cyan-400 hover:text-cyan-400 hover:-translate-y-1 transition-all">
-                Let's Connect
-                <ArrowRight size={20} />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+                <a href="/resume.pdf" download="Subhankar_Chand_Resume.pdf" className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all">
+                  <Download size={20} />
+                  Download Resume
+                </a>
+                <a href="#contact" className="flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-slate-600 text-white rounded-full font-bold hover:border-cyan-400 hover:text-cyan-400 hover:-translate-y-1 transition-all">
+                  Let's Connect
+                  <ArrowRight size={20} />
+                </a>
+              </div>
+
+              <div className="flex flex-wrap justify-center lg:justify-start gap-12 border-t border-slate-800/50 pt-8">
+                {stats.map((stat, index) => (
+                  <div key={index} className="flex flex-col items-center lg:items-start">
+                    <h3 className="text-3xl font-bold text-white mb-1">{stat.num}</h3>
+                    <p className="text-sm text-slate-500 uppercase tracking-wide font-mono">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 relative">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500 blur-[120px] opacity-20 rounded-full"></div>
+              <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-900 rounded-full border-[6px] border-slate-800 overflow-hidden shadow-2xl group">
+                <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover object-top transition-all duration-500"/>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Experience & Education Timeline Section */}
+        <section id="journey" className="py-24 bg-slate-900/30 border-t border-slate-800">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="flex items-center gap-4 mb-16">
+              <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">00.</span> My Journey</h2>
+              <div className="h-px bg-slate-800 flex-grow"></div>
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-12 border-t border-slate-800/50 pt-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="flex flex-col items-center lg:items-start">
-                  <h3 className="text-3xl font-bold text-white mb-1">{stat.num}</h3>
-                  <p className="text-sm text-slate-500 uppercase tracking-wide font-mono">{stat.label}</p>
+            <div className="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
+              {journeyData.map((item) => (
+                <div key={item.id} className="relative pl-8 md:pl-12 group">
+                  <div className={`absolute -left-[11px] top-1 h-5 w-5 rounded-full border-4 border-[#0f172a] transition-all 
+                    ${item.isCurrent ? 'bg-cyan-500 group-hover:scale-125 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'bg-slate-700 group-hover:bg-cyan-400'}`}>
+                  </div>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                      <item.Icon size={20} className="text-cyan-400" />
+                      {item.role}
+                    </h3>
+                    <span className={`flex items-center gap-1 text-xs font-mono px-3 py-1 rounded-full w-max border 
+                      ${item.isCurrent ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' : 'text-slate-400 bg-slate-800 border-slate-700'}`}>
+                      <Calendar size={14} /> 
+                      {formatDisplayDate(item.startDate, item.endDate)} · {formatDuration(item.startDate, item.endDate)}
+                    </span>
+                  </div>
+                  <div className="mb-3">
+                    {item.link ? (
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-300 hover:text-cyan-400 flex items-center gap-2 w-max transition-colors">
+                        {item.organization} <ExternalLink size={16} />
+                      </a>
+                    ) : (
+                      <h4 className="text-slate-400 font-medium">{item.organization}</h4>
+                    )}
+                    {item.location && <p className="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wide">{item.location}</p>}
+                  </div>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               ))}
             </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="flex-1 relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500 blur-[120px] opacity-20 rounded-full"></div>
-            <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto bg-slate-900 rounded-full border-[6px] border-slate-800 overflow-hidden shadow-2xl group">
-              <img src="/profile.png" onError={(e) => e.target.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=Subhankar'} alt="Subhankar Chand" className="w-full h-full object-cover object-top transition-all duration-500"/>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Experience & Education Timeline Section */}
-      <section id="journey" className="py-24 bg-slate-900/30 border-t border-slate-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">00.</span> My Journey</h2>
-            <div className="h-px bg-slate-800 flex-grow"></div>
           </div>
+        </section>
 
-          <div className="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
-            
-            {/* DYNAMICALLY RENDERING JOURNEY ITEMS */}
-            {journeyData.map((item) => (
-              <div key={item.id} className="relative pl-8 md:pl-12 group">
-                
-                {/* Timeline Dot */}
-                <div className={`absolute -left-[11px] top-1 h-5 w-5 rounded-full border-4 border-[#0f172a] transition-all 
-                  ${item.isCurrent ? 'bg-cyan-500 group-hover:scale-125 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'bg-slate-700 group-hover:bg-cyan-400'}`}>
-                </div>
-                
-                {/* Header Row */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                    <item.Icon size={20} className="text-cyan-400" />
-                    {item.role}
-                  </h3>
-                  
-                  <span className={`flex items-center gap-1 text-xs font-mono px-3 py-1 rounded-full w-max border 
-                    ${item.isCurrent ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' : 'text-slate-400 bg-slate-800 border-slate-700'}`}>
-                    <Calendar size={14} /> 
-                    {formatDisplayDate(item.startDate, item.endDate)} · {formatDuration(item.startDate, item.endDate)}
-                  </span>
-                </div>
-                
-                {/* Subheader / Company */}
-                <div className="mb-3">
-                  {item.link ? (
-                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-300 hover:text-cyan-400 flex items-center gap-2 w-max transition-colors">
-                      {item.organization} <ExternalLink size={16} />
-                    </a>
-                  ) : (
-                    <h4 className="text-slate-400 font-medium">{item.organization}</h4>
-                  )}
-                  {item.location && <p className="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wide">{item.location}</p>}
-                </div>
-                
-                {/* Description */}
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-                
+        {/* Skills Section */}
+        <section id="skills" className="py-24 bg-[#0b1329]">
+          <div className="max-w-6xl mx-auto px-6">
+             <div className="flex items-center gap-4 mb-16">
+              <h2 className="text-3xl font-bold text-white">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-mono pr-2">01.</span> 
+                Technical Arsenal
+              </h2>
+              <div className="h-px bg-slate-800 flex-grow"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                      <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">Programming</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
               </div>
-            ))}
-
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-24 bg-slate-900/50 border-y border-slate-800">
-        <div className="max-w-6xl mx-auto px-6">
-           <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">01.</span> Technical Arsenal</h2>
-            <div className="h-px bg-slate-800 flex-grow"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                    <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">Programming</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["Python", "SQL", "C++", "JavaScript", "HTML/CSS"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
-            </div>
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Brain size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">AI & ML</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
-            </div>
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><BarChart3 size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">Data Analytics</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
-            </div>
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Database size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">Tools</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
-            </div>
-             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Users size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">Soft Skills</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
-            </div>
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                     <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Search size={22}/></div>
-                    <h4 className="font-bold text-white text-lg">Core Concepts</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
-                </div>
+              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                       <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Brain size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">AI & ML</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["TensorFlow", "Scikit-Learn", "OpenCV", "YOLOv8", "Pandas", "NumPy"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
+              </div>
+              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                       <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><BarChart3 size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">Data Analytics</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["Power BI", "Excel", "Matplotlib", "Seaborn", "EDA", "Data Cleaning"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
+              </div>
+              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                       <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Database size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">Tools</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["Git", "GitHub", "VS Code", "Jupyter", "MySQL Workbench", "Google Colab"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
+              </div>
+               <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                       <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Users size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">Soft Skills</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["Problem Solving", "Team Leadership", "Communication", "Time Management"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
+              </div>
+              <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-900/20 hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                       <div className="p-2.5 bg-cyan-500/10 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform"><Search size={22}/></div>
+                      <h4 className="font-bold text-white text-lg">Core Concepts</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                      {["Data Structures", "Algorithms", "DBMS", "OOPs", "Statistics"].map((skill) => (<span key={skill} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-xs font-semibold hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors cursor-default">{skill}</span>))}
+                  </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Certifications Section */}
-      <section id="certifications" className="py-24 bg-[#0f172a]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">02.</span> Certifications</h2>
-            <div className="h-px bg-slate-800 flex-grow"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <a key={index} href={cert.link ? cert.link : "#"} target={cert.link ? "_blank" : "_self"} rel="noopener noreferrer" className={`block bg-slate-800 p-8 rounded-2xl border border-slate-700 transition-all group h-full flex flex-col ${cert.link ? 'hover:border-cyan-500/40 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-900/10 cursor-pointer' : 'cursor-default'}`}>
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><Award size={28} /></div>
-                  {cert.link && <ExternalLink size={20} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
-                <div className="flex items-center justify-between mb-6">
-                    <p className="text-sm text-cyan-500 font-bold">{cert.issuer}</p>
-                    <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-md">{cert.date}</span>
-                </div>
-                <ul className="space-y-3 flex-grow border-t border-slate-700/50 pt-4">
-                  {cert.points.map((point, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
-                      <span className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-cyan-500/50 group-hover:bg-cyan-400"></span>{point}
-                    </li>
-                  ))}
-                </ul>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-24 bg-slate-900/50 border-t border-slate-800">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-3xl font-bold text-white"><span className="text-cyan-400 font-mono">03.</span> Featured Projects</h2>
-            <div className="h-px bg-slate-800 flex-grow"></div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="group bg-[#0f172a] rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all hover:-translate-y-2 duration-300 flex flex-col shadow-lg overflow-hidden">
-                <div className="p-8 pb-0 flex-grow">
+        <FloatingSkills />
+        </section>
+       
+        {/* Certifications Section */}
+        <section id="certifications" className="py-24 bg-[#0f172a]">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex items-center gap-4 mb-16">
+              <h2 className="text-3xl font-bold text-white"><span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-mono pr-2">02.</span> Certifications</h2>
+              <div className="h-px bg-slate-800 flex-grow"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {certifications.map((cert, index) => (
+                <a key={index} href={cert.link ? cert.link : "#"} target={cert.link ? "_blank" : "_self"} rel="noopener noreferrer" className={`block bg-slate-800 p-8 rounded-2xl border border-slate-700 transition-all group h-full flex flex-col ${cert.link ? 'hover:border-cyan-500/40 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-900/10 cursor-pointer' : 'cursor-default'}`}>
                   <div className="flex justify-between items-start mb-6">
-                    <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:scale-110 transition-transform">
-                      {project.category === 'ai' || project.category === 'ml' ? <Brain size={28} /> : <Database size={28} />}
-                    </div>
-                    <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors" title="View Source Code">
-                      <Github size={24} />
-                    </a>
+                    <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><Award size={28} /></div>
+                    {cert.link && <ExternalLink size={20} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{project.title}</h3>
-                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="text-xs font-mono text-cyan-300 bg-cyan-900/20 border border-cyan-900/50 px-3 py-1.5 rounded-full">
-                        {tag}
-                      </span>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
+                  <div className="flex items-center justify-between mb-6">
+                      <p className="text-sm text-cyan-500 font-bold">{cert.issuer}</p>
+                      <span className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded-md">{cert.date}</span>
+                  </div>
+                  <ul className="space-y-3 flex-grow border-t border-slate-700/50 pt-4">
+                    {cert.points.map((point, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
+                        <span className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-cyan-500/50 group-hover:bg-cyan-400"></span>{point}
+                      </li>
                     ))}
+                  </ul>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-24 bg-slate-900/50 border-t border-slate-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex items-center gap-4 mb-16">
+              <h2 className="text-3xl font-bold text-white">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-mono pr-2">03.</span> Featured Projects</h2>
+              <div className="h-px bg-slate-800 flex-grow"></div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <div key={index} className="group bg-[#0f172a] rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all hover:-translate-y-2 duration-300 flex flex-col shadow-lg overflow-hidden">
+                  <div className="p-8 pb-0 flex-grow">
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 group-hover:scale-110 transition-transform">
+                        {project.category === 'ai' || project.category === 'ml' ? <Brain size={28} /> : <Database size={28} />}
+                      </div>
+                      <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors" title="View Source Code">
+                        <Github size={24} />
+                      </a>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{project.title}</h3>
+                    <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="text-xs font-mono text-cyan-300 bg-cyan-900/20 border border-cyan-900/50 px-3 py-1.5 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-auto flex border-t border-slate-800">
+                    <a href={project.links.tryIt} className="flex-1 text-center py-4 text-sm font-bold text-white bg-slate-800/30 hover:bg-cyan-600 transition-colors flex items-center justify-center gap-2">
+                      Try It Live <ExternalLink size={16} />
+                    </a>
+                    <div className="w-px bg-slate-800"></div>
+                    <button onClick={(e) => openModal(e, project)} className="flex-1 text-center py-4 text-sm font-bold text-cyan-400 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
+                      Learn More <ArrowRight size={16} />
+                    </button>
                   </div>
                 </div>
-                <div className="mt-auto flex border-t border-slate-800">
-                  <a href={project.links.tryIt} className="flex-1 text-center py-4 text-sm font-bold text-white bg-slate-800/30 hover:bg-cyan-600 transition-colors flex items-center justify-center gap-2">
-                    Try It Live <ExternalLink size={16} />
-                  </a>
-                  <div className="w-px bg-slate-800"></div>
-                  <button onClick={(e) => openModal(e, project)} className="flex-1 text-center py-4 text-sm font-bold text-cyan-400 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
-                    Learn More <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-32 max-w-2xl mx-auto px-6 text-center">
-        <p className="text-cyan-400 font-mono mb-4">04. What's Next?</p>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
-        <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-            I'm actively looking for opportunities in <span className="text-cyan-400 font-semibold">Data Analytics & AI</span>. 
-            Whether you have a question or just want to say hi, my inbox is always open!
-        </p>
-        <form ref={form} onSubmit={sendEmail} className="text-left bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700 mb-12 shadow-xl">
-          <div className="mb-6">
-            <label className="block text-sm font-bold text-slate-300 mb-2">Your Name</label>
-            <input type="text" name="user_name" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="John Doe" />
+        {/* Contact Section */}
+        <section id="contact" className="py-32 max-w-2xl mx-auto px-6 text-center">
+          <p className="text-cyan-400 font-mono mb-4">04. What's Next?</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
+          <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+              I'm actively looking for opportunities in <span className="text-cyan-400 font-semibold">AI & Data Engineering</span>. 
+              Whether you have a question or just want to say hi, my inbox is always open!
+          </p>
+          <form ref={form} onSubmit={sendEmail} className="text-left bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700 mb-12 shadow-xl">
+            <div className="mb-6">
+              <label className="block text-sm font-bold text-slate-300 mb-2">Your Name</label>
+              <input type="text" name="user_name" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Subhankar Chand" />
+            </div>
+            <div className="mb-6">
+              <label className="block text-sm font-bold text-slate-300 mb-2">Email Address</label>
+              <input type="email" name="user_email" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="subhankar_example@gmail.com" />
+            </div>
+            <div className="mb-8">
+              <label className="block text-sm font-bold text-slate-300 mb-2">Message</label>
+              <textarea name="message" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white h-32 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all resize-none" placeholder="Hello, I'd like to discuss..." />
+            </div>
+            <button type="submit" className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-lg">
+              <Send size={20} /> Send Message
+            </button>
+          </form>
+          <div className="flex justify-center gap-8 mb-12">
+              <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Github size={24} /></a>
+              <a href="https://www.linkedin.com/in/subhankarchand/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Linkedin size={24} /></a>
+              <a href="mailto:subhankarchand66@gmail.com" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Mail size={24} /></a>
           </div>
-          <div className="mb-6">
-            <label className="block text-sm font-bold text-slate-300 mb-2">Email Address</label>
-            <input type="email" name="user_email" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="john@example.com" />
-          </div>
-          <div className="mb-8">
-            <label className="block text-sm font-bold text-slate-300 mb-2">Message</label>
-            <textarea name="message" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white h-32 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all resize-none" placeholder="Hello, I'd like to discuss..." />
-          </div>
-          <button type="submit" className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-lg">
-            <Send size={20} /> Send Message
-          </button>
-        </form>
-        <div className="flex justify-center gap-8 mb-12">
-            <a href="https://github.com/SubhankarChand" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Github size={24} /></a>
-            <a href="https://www.linkedin.com/in/subhankarchand/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Linkedin size={24} /></a>
-            <a href="mailto:subhankarchand66@gmail.com" className="p-3 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:-translate-y-1"><Mail size={24} /></a>
-        </div>
-        <p className="text-slate-600 font-mono text-sm">Designed & Built by Subhankar Chand</p>
-      </section>
+          {/* REMOVED: Redundant Designed & Built Text */}
+        </section>
+      </main>
 
+      <Footer />
     </div>
   );
 };
