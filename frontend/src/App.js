@@ -277,8 +277,18 @@ const Portfolio = () => {
                   </h2>
               </div>
               <p className="max-w-xl mx-auto lg:mx-0 text-lg text-slate-400 mb-10 leading-relaxed">
-                Currently an <span className="text-cyan-400 font-semibold">AI Data Engineer Intern at Shabd</span>. I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
+                Currently an{" "}
+                <a 
+                  href="https://shabd.tech/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-cyan-400 font-semibold hover:underline"
+                >
+                  AI Data Engineer Intern at Shabd
+                </a>. 
+                I bridge the gap between complex data and strategic business decisions using AI, Python, and scalable data pipelines.
               </p>
+
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
                 <a href="/resume.pdf" download="Subhankar_Chand_Resume.pdf" className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all">
