@@ -4,17 +4,20 @@ export const skillsImage = (skill) => {
   switch (skillID) {
     case 'python': 
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg';
+    case 'fastapi':
+      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg';
+    case 'docker':
+      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg';
+    case 'langchain':
+      return 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg'; // Or custom LangChain icon SVG
+    case 'streamlit':
+      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg';
     case 'sql': 
-      // Using the standard MySQL logo as a clean representation for SQL
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg';
     case 'c++': 
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg';
     case 'javascript': 
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg';
-    case 'html': 
-      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg';
-    case 'css': 
-      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg';
     case 'tensorflow': 
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg';
     case 'opencv': 
@@ -30,4 +33,4 @@ export const skillsImage = (skill) => {
     default: 
       return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg';
   }
-}
+};

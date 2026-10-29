@@ -1,14 +1,14 @@
 export const skillsData = [
   "Python",
-  "SQL",
-  "C++",
-  "JavaScript",
-  "HTML",
-  "CSS",
+  "FastAPI",
+  "Docker",
+  "LangChain",
   "TensorFlow",
   "OpenCV",
+  "SQL",
+  "Streamlit",
   "Pandas",
-  "NumPy",
-  "Power BI",
-  "Git"
+  "Git",
+  "C++",
+  "Power BI"
 ];
